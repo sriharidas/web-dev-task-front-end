@@ -11,7 +11,7 @@ function MoviePosterCardsGroup({ property, name, id, heading }) {
   useEffect(() => {
     async function fetchData() {
       const resp = await fetch(
-        `http://127.0.0.1:5000/search/movies/${property}/${name}/15`
+        `https://sriharidas-imdb-movie-api.herokuapp.com/search/movies/${property}/${name}/15`
       );
       const response = await resp.json();
       setMovieData(response);
@@ -21,7 +21,9 @@ function MoviePosterCardsGroup({ property, name, id, heading }) {
 
   async function MovieUrls(movie) {
     return (
-      await fetch(`http://127.0.0.1:5000/get/movie/data/${movie}`)
+      await fetch(
+        `https://sriharidas-imdb-movie-api.herokuapp.com/get/movie/data/${movie}`
+      )
     ).json();
   }
   // storing Movie Names in spearate State
@@ -49,7 +51,7 @@ function MoviePosterCardsGroup({ property, name, id, heading }) {
           movieList.map(async (movie) => {
             try {
               const resp = await fetch(
-                `http://127.0.0.1:5000/get/movie/data/${movie}`
+                `https://sriharidas-imdb-movie-api.herokuapp.com/get/movie/data/${movie}`
               );
               const response = await resp.json();
               setUrlData((prev) => ({

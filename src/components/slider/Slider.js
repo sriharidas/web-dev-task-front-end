@@ -46,7 +46,7 @@ export default function Slider({ slides }) {
         <FaArrowLeft />
       </button>
       <div className="slider-slide-wrapper">
-        {slides.content !== undefined &&
+        {true &&
           slides.map((slide, index) => (
             <Slide
               index={index + 1}

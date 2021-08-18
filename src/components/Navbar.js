@@ -34,7 +34,7 @@ export default function Navbar() {
       pathname: "/movies",
       state: { detail: document.querySelector("#search-bar").value },
     });
-    // fetch(`http://127.0.0.1:5000/movie/info/${searchValue}`, {
+    // fetch(`https://sriharidas-imdb-movie-api.herokuapp.com/movie/info/${searchValue}`, {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",

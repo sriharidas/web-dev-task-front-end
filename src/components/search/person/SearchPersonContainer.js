@@ -8,7 +8,7 @@ export default function SearchPersonContainer(props) {
   useEffect(() => {
     const personfunc = async () => {
       const resp = await fetch(
-        `http://127.0.0.1:5000/person/info/${props.location.state.detail}`
+        `https://sriharidas-imdb-movie-api.herokuapp.com/person/info/${props.location.state.detail}`
       );
       const response = await resp.json();
       console.log(response);

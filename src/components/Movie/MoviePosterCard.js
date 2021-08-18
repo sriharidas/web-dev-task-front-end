@@ -35,7 +35,9 @@ function MoviePosterCard(props) {
   useEffect(() => {
     if (animation) return;
     async function movieposterData() {
-      const resp = await fetch(`http://127.0.0.1:5000/get/movie/data/${title}`);
+      const resp = await fetch(
+        `https://sriharidas-imdb-movie-api.herokuapp.com/get/movie/data/${title}`
+      );
       const response = await resp.json();
       // console.log(response);
       setUrlData(response);
