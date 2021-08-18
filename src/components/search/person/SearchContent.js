@@ -1,13 +1,42 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export default function SearchContent({ title, prop, animation }) {
-  const ContentData = (prop) => {
+export default function SearchContent({
+  title,
+  prop,
+  animation,
+  direction,
+  path,
+}) {
+  const ContentData = (prop, link) => {
+    let data;
     const value =
       typeof prop === "object"
         ? Object.keys(prop).map((x) => ContentData(prop[x]))
         : prop;
-    console.log(value);
-    return <p>{value}</p>;
+    console.log(value, link);
+    data = link ? (
+      <div>
+        {value.map((a) => {
+          console.log(a.props.children);
+          return (
+            <Link
+              to={{
+                pathname: path,
+                state: {
+                  detail: a.props.children,
+                },
+              }}
+            >
+              {a}
+            </Link>
+          );
+        })}
+      </div>
+    ) : (
+      <span style={{ padding: "0 5px" }}>{value}</span>
+    );
+    return data;
   };
 
   return (
@@ -30,13 +59,13 @@ export default function SearchContent({ title, prop, animation }) {
       ) : (
         <>
           <h3>{title}</h3>
-          <div>
-            {/* {typeof prop === "object"
-              ? (Object.keys(prop).map((x) => {
-                typeof prop[x] === 'object'? Object.keys(prop[x])
-              }) : 'a')
-              : { prop }} */}
-            {ContentData(prop)}
+          <div style={{ display: "flex", flexDirection: direction }}>
+            {title.includes("filmography") ||
+            title.includes("cast") ||
+            title.includes("producers") ||
+            title.includes("writers")
+              ? ContentData(prop, true)
+              : ContentData(prop, false)}
           </div>
         </>
       )}

@@ -3,7 +3,9 @@ import { MdMovieCreation } from "react-icons/md";
 import { ImSearch } from "react-icons/im";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 export default function Navbar() {
+  const history = useHistory();
   const [searchValue, setSearchValue] = useState("");
   const [posterData, setPosterData] = useState("");
   const [menu, setMenu] = useState(window.innerWidth > 1080);
@@ -28,21 +30,25 @@ export default function Navbar() {
   };
   const HandleSubmit = () => {
     if (searchValue === "") return;
-    fetch(`http://127.0.0.1:5000/movie/info/${searchValue}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        search: searchValue,
-      }),
-    })
-      .then((resp) => resp.json())
-      .then((resp) => {
-        // alert("request sent!");
-        console.log(resp);
-        setPosterData(resp);
-      });
+    history.push({
+      pathname: "/movies",
+      state: { detail: document.querySelector("#search-bar").value },
+    });
+    // fetch(`http://127.0.0.1:5000/movie/info/${searchValue}`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     search: searchValue,
+    //   }),
+    // })
+    //   .then((resp) => resp.json())
+    //   .then((resp) => {
+    //     // alert("request sent!");
+    //     console.log(resp);
+    //     setPosterData(resp);
+    //   });
   };
   return (
     <div className="app-header">
@@ -77,36 +83,44 @@ export default function Navbar() {
               <AiOutlineClose />
             </span>
             <li>
-              <Link to="/">Movies</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/series">series</Link>
+              <Link
+                to={{
+                  pathname: "/movies",
+                  state: {
+                    detail: "Inception",
+                  },
+                }}
+              >
+                Movies
+              </Link>
             </li>
             <li>
+              <Link
+                to={{
+                  pathname: "/search",
+                  state: {
+                    detail: "Chris Evans",
+                  },
+                }}
+              >
+                Actor
+              </Link>
+            </li>
+            {/* <li>
               <Link to="/search">genre</Link>
-              {/* <ul className="sub-menu">
-                <li>
-                  <Link to="/">Action</Link>
-                </li>
-                <li>
-                  <Link to="/">comedy</Link>
-                </li>
-                <li>
-                  <Link to="/">Thriller</Link>
-                </li>
-                <li>
-                  <Link to="/">Sci-fi</Link>
-                </li>
-              </ul> */}
-            </li>
-            <li>
+              
+            </li> */}
+            {/* <li>
               <Link to="/search">Login</Link>
             </li>
             <li>
               <Link to="/search" className="primary-btn">
                 Register
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       )}

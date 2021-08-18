@@ -46,14 +46,18 @@ export default function Slider({ slides }) {
         <FaArrowLeft />
       </button>
       <div className="slider-slide-wrapper">
-        {slides.map((slide, index) => (
-          <Slide
-            index={index + 1}
-            icon={slide.icon}
-            content={slide.content}
-            link={slide.link}
-          />
-        ))}
+        {slides.content !== undefined &&
+          slides.map((slide, index) => (
+            <Slide
+              index={index + 1}
+              icon={slide.icon}
+              content={slide.content}
+              link={slide.link}
+            />
+          ))}
+        {/* {slides.img.map((x) => (
+          <Slide img={x[1]} alt={x[0]} />
+        ))} */}
       </div>
       <button
         type="button"

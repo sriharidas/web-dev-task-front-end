@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import SearchContent from "./SearchContent";
 import SearchHeader from "./SearchHeader";
-
-export default function SearchPersonContainer({ movieName }) {
+import { useHistory } from "react-router";
+export default function SearchPersonContainer(props) {
+  const history = useHistory();
   const [personData, setPersonData] = useState({});
   useEffect(() => {
     const personfunc = async () => {
       const resp = await fetch(
-        `http://127.0.0.1:5000/person/info/${"ajith kumar"}`
+        `http://127.0.0.1:5000/person/info/${props.location.state.detail}`
       );
       const response = await resp.json();
       console.log(response);
@@ -17,9 +18,36 @@ export default function SearchPersonContainer({ movieName }) {
   }, []);
   return (
     <div className="search-result-container">
-      <div className="search-result-wrapper">
+      <div className="search-result-wrapper" style={{ position: "relative" }}>
         {Object.keys(personData).length > 0 ? (
           <>
+            <div
+              style={{
+                position: "absolute",
+                top: "0",
+                right: "0",
+                display: "none",
+              }}
+            >
+              <input
+                id="search-actor"
+                placeholder="actor name"
+                style={{ padding: "7px" }}
+              />
+              <button
+                className="secondary-btn"
+                onClick={() => {
+                  history.push({
+                    pathname: "/search",
+                    state: {
+                      detail: document.querySelector("#search-actor").value,
+                    },
+                  });
+                }}
+              >
+                Search
+              </button>
+            </div>
             <SearchHeader
               props={personData}
               animation={false}
@@ -51,6 +79,7 @@ export default function SearchPersonContainer({ movieName }) {
                   title={x}
                   prop={personData[x]}
                   animation={false}
+                  path="/movies"
                 />
               ) : (
                 ""

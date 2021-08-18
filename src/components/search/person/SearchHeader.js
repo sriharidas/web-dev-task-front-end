@@ -35,6 +35,8 @@ export default function SearchHeader({ props, animation }) {
                 <div className="content">
                   {typeof props[x] === "object" ? (
                     props[x].map((i) => <span>{i}</span>)
+                  ) : props[x] === "" || props[x] === undefined ? (
+                    <span>No Data</span>
                   ) : (
                     <span>{props[x]}</span>
                   )}

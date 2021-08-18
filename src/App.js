@@ -6,6 +6,7 @@ import { IoMdVideocam } from "react-icons/io";
 import SearchPersonContainer from "./components/search/person/SearchPersonContainer";
 import HomePage from "./components/Movie/HomePage";
 import Navbar from "./components/Navbar";
+import SearchMovieContainer from "./components/search/movie/SearchMovieContainer";
 
 function App() {
   return (
@@ -18,7 +19,16 @@ function App() {
             path="/"
             component={() => <HomePage props={HomePageData} />}
           />
-          <Route exact path="/search" component={SearchPersonContainer} />
+          <Route
+            exact
+            path="/search"
+            component={(props) => <SearchPersonContainer {...props} />}
+          />
+          <Route
+            exact
+            path="/movies"
+            component={(props) => <SearchMovieContainer {...props} />}
+          />
         </Switch>
       </div>
     </Router>

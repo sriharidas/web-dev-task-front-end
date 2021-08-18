@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useHistory } from "react-router-dom";
 function MoviePosterCard(props) {
   const [urlData, setUrlData] = useState({});
   const {
@@ -14,6 +14,7 @@ function MoviePosterCard(props) {
     id,
     property,
   } = props;
+  const history = useHistory();
   useEffect(() => {
     const imgContainers = document.querySelectorAll(".movie-poster-card-img");
 
@@ -45,7 +46,17 @@ function MoviePosterCard(props) {
     // console.log(urlData);
   }, [urlData]);
   return (
-    <div className={`movie-poster-card`}>
+    <div
+      className={`movie-poster-card`}
+      onClick={() =>
+        history.push({
+          pathname: "/movies",
+          state: {
+            detail: title,
+          },
+        })
+      }
+    >
       <div
         className="movie-poster-card-img animate-bg"
         id={`${property}-poster-card-img-${id}`}
